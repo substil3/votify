@@ -172,7 +172,7 @@ def load_config_file(
 @click.option(
     "--cookies-path",
     type=Path,
-    default=Path("./cookies.txt"),
+    default=Path("./open.spotify.com_cookies.txt"),
     help="Path to cookies file.",
 )
 # Downloader specific options

@@ -8,7 +8,7 @@ import requests
 
 # thanks to https://github.com/glomatico/votify/pull/42#issuecomment-2727036757
 class TOTP:
-    SPOTIFY_SECRETS_JSON = "https://raw.githubusercontent.com/Thereallo1026/spotify-secrets/refs/heads/main/secrets/secretDict.json"
+    SPOTIFY_SECRETS_JSON = "https://code.thetadev.de/ThetaDev/spotify-secrets/raw/branch/main/secrets/secretDict.json"
     PERIOD = 30
     DIGITS = 6
 
@@ -19,6 +19,7 @@ class TOTP:
         version, secret_cipher_bytes = self.get_latest_secret()
         self.version = version
         self.secret = self.derive_secret_number(secret_cipher_bytes).encode()
+        print(self.secret)
 
     def derive_secret_number(self, secret_cipher_bytes: list[int]) -> str:
         transformed = [
@@ -30,6 +31,12 @@ class TOTP:
         response = requests.get(self.SPOTIFY_SECRETS_JSON)
         response.raise_for_status()
         secrets = response.json()
+        print(secrets)
+
+        '''{
+        clientId: 'acc6302297e040aeb6e4ac1fbdfd62c3',
+        clientSecret: '0e8439a1280a43aba9a5bc0a16f3f009',
+        }'''
         latest_version = max(int(v) for v in secrets.keys())
         return latest_version, secrets[str(latest_version)]
 

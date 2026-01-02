@@ -116,6 +116,7 @@ class SpotifyApi:
         )
 
     def _setup_authorization_with_totp(self) -> None:
+        print("authorizing")
         server_time = self._get_server_time()
         totp = self.totp.generate(timestamp=server_time)
         response = self.session.get(
